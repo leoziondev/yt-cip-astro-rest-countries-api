@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layout/BaseLayout.astro'
+
+const { page } = Astro.params
+const res = await fetch(`https://restcountries.com/v3.1/alpha/${page}`)
+const data = await res.json()
+---
+
+<BaseLayout title={`${data[0].name.common} Countrie Details`}>
+    <div class="grid gap-2">
+        <a href="/">Back</a>
+        <h1>{data[0].name.common}</h1>
+    </div>
+</BaseLayout>
