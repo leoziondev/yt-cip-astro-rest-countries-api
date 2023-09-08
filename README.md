@@ -19,6 +19,10 @@ Tailwindcss
 ```
 npx astro add tailwind
 ```
+Deploy Netlify
+```
+npx astro add netlify
+```
 
 ## How to run this project
 
