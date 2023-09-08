@@ -1,16 +1,75 @@
 ---
+// imports
 import BaseLayout from '../layout/BaseLayout.astro'
 
-const res = await fetch("https://restcountries.com/v3.1/all")
+// data fetching
+const country = Astro.url.searchParams.get('country')
+const res = country 
+	? await fetch(`https://restcountries.com/v3.1/region/${country.toLowerCase()}`)
+	: await fetch("https://restcountries.com/v3.1/all")
 const data = await res.json()
+
+const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 ---
 
 <BaseLayout>	
 	<ul id="countries">
+		<input type="search" id="search" placeholder="Enter search term" />
+		<label>
+			<select name="regions" id="regions">
+				<option value="">Filter by Region</option>
+				{regions.map((r) => <option value={r}>{r}</option>)}
+			</select>
+		</label>
 		{data.map(d => (
-			<li>
+			<li data-country={d.name.common}>
 				<a href={`/country/${d.ccn3}`}>{d.name.common}</a>
 			</li>
 		))}
 	</ul>
-</BaseLayout>>
+</BaseLayout>
+
+<script>
+	// inputs
+	const searchInput = document.querySelector("#search") as HTMLInputElement
+	const regionInput = document.querySelector("#regions") as HTMLSelectElement
+
+	// cards
+	const countries = Array.from(document.querySelectorAll("[data-country]"))
+
+	// event listeners
+
+	// search
+	searchInput?.addEventListener('input', (e) => {
+		const value = e.target?.value.toLowerCase()
+		countries.forEach((c) => {
+			if (!c.dataset.country.toLowerCase().includes(value)) {
+				c.classList.add("hidden")
+			} else {
+				c.classList.remove("hidden")
+			}			
+		})
+	})
+
+	// filter
+	regionInput?.addEventListener('change', (e) => {
+		if (e.target.value === "") {
+			return window.location.assign(window.location.origin)
+		}
+		const url = new URL(window.location.origin)
+		url.searchParams.set("country", e.target.value)
+
+		window.location.assign(url)
+	})
+
+	// window on load
+	function setDropdownInput() {
+		const url = new URL(window.location)
+		const { country } = Object.fromEntries(url.searchParams)
+		if (country) {
+			regionInput.value = country	
+		}	
+	}
+
+	window.addEventListener('DOMContentLoaded', setDropdownInput)
+</script>
