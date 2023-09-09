@@ -1,6 +1,10 @@
 ---
 // imports
+import Card from '../components/Card.astro'
+import SearchIcon from '../components/SearchIcon.astro'
 import BaseLayout from '../layout/BaseLayout.astro'
+import type { countryType } from '../types/country'
+
 
 // data fetching
 const country = Astro.url.searchParams.get('country')
@@ -13,20 +17,38 @@ const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 ---
 
 <BaseLayout>	
-	<ul id="countries">
-		<input type="search" id="search" placeholder="Enter search term" />
-		<label>
-			<select name="regions" id="regions">
-				<option value="">Filter by Region</option>
+	<div class="flex justify-between px-4 py-8">
+		<div class="relative">
+			<input
+				type="search"
+				id="search"
+				placeholder="Enter search term..."
+				class="py-2 px-4 rounded-md shadow-sm placeholder:italic bg-theme-elements pl-9"
+			/>
+			<SearchIcon customClass="absolute top-2.5 left-2 w-5 h-5 text-theme-input" />
+		</div>
+		<label class="pr-4 rounded-md shadow-sm bg-theme-elements overflow-hidden">
+			<select name="regions" id="regions" class="py-2 px-4 bg-theme-elements">
+				<option value="" disabled selected>Filter by Region</option>
+				<option value="">All Regions</option>
 				{regions.map((r) => <option value={r}>{r}</option>)}
 			</select>
 		</label>
-		{data.map(d => (
-			<li data-country={d.name.common}>
-				<a href={`/country/${d.ccn3}`}>{d.name.common}</a>
-			</li>
-		))}
-	</ul>
+	</div>
+	<section aria-label="countries" class="mx-4 xl:mx:0">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+			{data.map((d: countryType) => (
+				<Card
+					name={d.name.common}
+					image={d.flags.png}
+					pop={d.population}
+					region={d.region}
+					capital={d.capital}
+					link={`/country/${d.ccn3}`}
+				/>
+			))}
+		</div>
+	</section>
 </BaseLayout>
 
 <script>
