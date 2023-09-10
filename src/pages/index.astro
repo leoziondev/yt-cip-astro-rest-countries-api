@@ -17,18 +17,18 @@ const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 ---
 
 <BaseLayout>	
-	<div class="flex justify-between px-4 py-8">
+	<div class="flex flex-col sm:flex-row gap-4 justify-between px-4 py-8">
 		<div class="relative">
 			<input
 				type="search"
 				id="search"
 				placeholder="Enter search term..."
-				class="py-2 px-4 rounded-md shadow-sm placeholder:italic bg-theme-elements pl-9"
+				class="py-2 px-4 rounded-md shadow-sm placeholder:italic bg-theme-elements pl-9 w-full md:w-96"
 			/>
 			<SearchIcon customClass="absolute top-2.5 left-2 w-5 h-5 text-theme-input" />
 		</div>
 		<label class="pr-4 rounded-md shadow-sm bg-theme-elements overflow-hidden">
-			<select name="regions" id="regions" class="py-2 px-4 bg-theme-elements">
+			<select name="regions" id="regions" class="py-2 px-4 bg-theme-elements w-full">
 				<option value="" disabled selected>Filter by Region</option>
 				<option value="">All Regions</option>
 				{regions.map((r) => <option value={r}>{r}</option>)}
