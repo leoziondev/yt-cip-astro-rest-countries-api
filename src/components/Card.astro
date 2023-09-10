@@ -11,10 +11,10 @@ type Props = {
     cioc: string
 }
 
-const { name, image, pop, region, capital, link, cioc } = Astro.props
+const { name, image, pop, region, capital, link, cioc, ...rest } = Astro.props
 ---
 
-<article class="bg-theme-elements rounded-md shadow-sm overflow-hidden">
+<article class="bg-theme-elements rounded-md shadow-sm overflow-hidden" {...rest}>
     <a href={link}>
         <Image
             src={image}
