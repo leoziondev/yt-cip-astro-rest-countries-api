@@ -19,7 +19,7 @@ const borderCountries = dataCountries.filter((c: countryType) =>
 
 <BaseLayout title={`${data[0].name.common} Countrie Details`}>
     <div class="grid gap-2 mt-8 px-4">
-        <button class="flex justify-self-start items-center gap-2 rounded-md border-2 border-theme-elements text-theme-text hover:bg-theme-elements py-2 px-6" id="btn-back">
+        <button type="button" class="flex justify-self-start items-center gap-2 rounded-md border-2 border-theme-elements text-theme-text hover:bg-theme-elements py-2 px-6" id="btn-back">
             <ArrowLeftIcon customClass="w-4 h-4" />
             Back
         </button>
@@ -29,10 +29,16 @@ const borderCountries = dataCountries.filter((c: countryType) =>
                 width={640}
                 height={426}
                 alt={`${country.name.common} flag`}
+                transition:name={country.flags.png}
                 class="aspect-video object-cover"
             />
             <div class="grid gap-8">
-                <h1 class="text-4xl font-bold text-theme-text">{country.name.common}</h1>
+                <h1
+                    transition:name={country.cioc}
+                    class="text-4xl font-bold text-theme-text"
+                >
+                    {country.name.common}
+                </h1>
                 <div class="flex flex-col lg:flex-row gap-0 lg:gap-16">
                     <div class="text-sm text-theme-text">
                         <p><strong>Native Name: </strong>{formatList(Object.values(country.name.nativeName).map((n) => n.common))}</p>

@@ -45,6 +45,7 @@ const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 					region={d.region}
 					capital={d.capital}
 					link={`/country/${d.ccn3}`}
+					cioc={d.cioc}
 				/>
 			))}
 		</div>
@@ -94,4 +95,5 @@ const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 	}
 
 	window.addEventListener('DOMContentLoaded', setDropdownInput)
+	document.addEventListener('astro:after-swap', setDropdownInput)
 </script>

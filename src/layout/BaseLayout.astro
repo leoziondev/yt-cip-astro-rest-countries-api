@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions'
 import Header from '../components/Header.astro'
 
 type Props = {
@@ -20,6 +21,7 @@ import "../styles/app.css"
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body class="bg-theme-bg">
 		<Header />
