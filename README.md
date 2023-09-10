@@ -23,6 +23,10 @@ Deploy Netlify
 ```
 npx astro add netlify
 ```
+Theme Switch
+```
+npm install astro-color-scheme
+```
 
 ## How to run this project
 
@@ -35,3 +39,4 @@ npm run dev
 - [Live Code: Frontend Mentor Rest Countries API](https://www.youtube.com/watch?v=cu8vs7rPOt0) by Coding in Public Youtube Channel
 - [Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca)
 - [Rest Countries API](https://restcountries.com/)
+- [Astro Color Scheme](https://github.com/surjithctly/astro-color-scheme)

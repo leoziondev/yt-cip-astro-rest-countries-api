@@ -19,7 +19,7 @@ const borderCountries = dataCountries.filter((c: countryType) =>
 
 <BaseLayout title={`${data[0].name.common} Countrie Details`}>
     <div class="grid gap-2 mt-8 px-4">
-        <button type="button" class="flex justify-self-start items-center gap-2 rounded-md border-2 border-theme-elements text-theme-text hover:bg-theme-elements py-2 px-6" id="btn-back">
+        <button type="button" class="flex justify-self-start items-center gap-2 rounded-md border-2 border-theme-text hover:bg-theme-text hover:text-theme-bg dark:border-theme-elements text-theme-text dark:hover:bg-theme-elements dark:hover:text-theme-text py-2 px-6" id="btn-back" transition:persist>
             <ArrowLeftIcon customClass="w-4 h-4" />
             Back
         </button>
@@ -64,7 +64,7 @@ const borderCountries = dataCountries.filter((c: countryType) =>
                         <p class="flex flex-wrap items-center gap-4">
                             <strong>Border Countries: </strong>
                             {borderCountries.map((c: countryType) => (
-                                <a href={c.cca3} class="py-1 px-2 border border-theme-elements hover:bg-theme-elements text-sm rounded-md">
+                                <a href={c.cca3} class="py-1 px-2 border border-theme-text hover:bg-theme-text hover:text-theme-bg dark:border-theme-elements text-theme-text dark:hover:bg-theme-elements dark:hover:text-theme-text text-sm rounded-md">
                                     {c.name.common}
                                 </a>
                             ))}

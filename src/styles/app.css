@@ -34,4 +34,18 @@
             color-scheme: dark;
         }
     }
+    [data-theme="dark"] {
+        --theme-bg: var(--theme-bg-dark);
+        --theme-elements: var(--theme-elements-dark);
+        --theme-text: var(--theme-text-dark);
+        --theme-input: var(--theme-input-dark);
+        color-scheme: dark;
+    }
+    [data-theme="light"] {
+        --theme-bg: var(--theme-bg-light);
+        --theme-elements: var(--theme-elements-light);
+        --theme-text: var(--theme-text-light);
+        --theme-input: var(--theme-input-light);
+        color-scheme: light;
+    }
 }
