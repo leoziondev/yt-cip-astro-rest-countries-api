@@ -14,7 +14,7 @@ const allCountries = await fetch("https://restcountries.com/v3.1/all")
 const dataCountries = await allCountries.json()
 const borderCountries = dataCountries.filter((c: countryType) => 
     country?.borders?.includes(c.cioc)
-) ?? null
+)
 ---
 
 <BaseLayout title={`${data[0].name.common} Countrie Details`}>
@@ -59,16 +59,18 @@ const borderCountries = dataCountries.filter((c: countryType) =>
                         </p>
                     </div>
                 </div>
-                <div>
-                    <p class="flex flex-wrap items-center gap-4">
-                        <strong>Border Countries: </strong>
-                        {borderCountries.map((c: countryType) => (
-                            <a href={c.cca3} class="py-1 px-2 border border-theme-elements hover:bg-theme-elements text-sm rounded-md">
-                                {c.name.common}
-                            </a>
-                        ))}
-                    </p>
-                </div>
+                {borderCountries.length > 0 && (
+                    <div>
+                        <p class="flex flex-wrap items-center gap-4">
+                            <strong>Border Countries: </strong>
+                            {borderCountries.map((c: countryType) => (
+                                <a href={c.cca3} class="py-1 px-2 border border-theme-elements hover:bg-theme-elements text-sm rounded-md">
+                                    {c.name.common}
+                                </a>
+                            ))}
+                        </p>
+                    </div>
+                )}
             </div>
         </section>
     </div>
