@@ -1,19 +1,70 @@
 ---
+import { Image } from 'astro:assets';
 import ArrowLeftIcon from '../../components/ArrowLeftIcon.astro';
 import BaseLayout from '../../layout/BaseLayout.astro'
+import type { countryType } from '../../types/country';
+import { formatList } from '../../utils';
 
 const { page } = Astro.params
 const res = await fetch(`https://restcountries.com/v3.1/alpha/${page}`)
-const data = await res.json()
+const data = (await res.json()) as countryType[] 
+const country = data[0]
+
+const allCountries = await fetch("https://restcountries.com/v3.1/all")
+const dataCountries = await allCountries.json()
+const borderCountries = dataCountries.filter((c: countryType) => 
+    country?.borders?.includes(c.cioc)
+) ?? null
 ---
 
 <BaseLayout title={`${data[0].name.common} Countrie Details`}>
     <div class="grid gap-2 mt-8 px-4">
-        <button class="flex items-center gap-2" id="btn-back">
+        <button class="flex justify-self-start items-center gap-2 rounded-md border-2 border-theme-elements text-theme-text hover:bg-theme-elements py-2 px-6" id="btn-back">
             <ArrowLeftIcon customClass="w-4 h-4" />
             Back
         </button>
-        <h1>{data[0].name.common}</h1>
+        <section aria-label={`Information about ${data[0].name}`} class="flex flex-col lg:flex-row items-center gap-8 xl:gap-16 mt-8">
+            <Image
+                src={country.flags.svg}
+                width={640}
+                height={426}
+                alt={`${country.name.common} flag`}
+                class="aspect-video object-cover"
+            />
+            <div class="grid gap-8">
+                <h1 class="text-4xl font-bold text-theme-text">{country.name.common}</h1>
+                <div class="flex flex-col lg:flex-row gap-0 lg:gap-16">
+                    <div class="text-sm text-theme-text">
+                        <p><strong>Native Name: </strong>{formatList(Object.values(country.name.nativeName).map((n) => n.common))}</p>
+                        <p><strong>Population: </strong>{country.population.toLocaleString(undefined)}</p>
+                        <p><strong>Region: </strong>{country.region}</p>
+                        <p><strong>Sub Region: </strong>{country.subregion}</p>
+                        <p><strong>Capital: </strong>{country.capital}</p>
+                    </div>
+                    <div class="text-sm text-theme-text">
+                        <p><strong>Top Level Domain: </strong>{country.tld}</p>
+                        <p>
+                            <strong>Currencies: </strong>
+                            {formatList(Object.values(country.currencies).map((c) => c.name))}
+                        </p>
+                        <p>
+                            <strong>Languages: </strong>
+                            {formatList(Object.values(country.languages))}
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <p class="flex flex-wrap items-center gap-4">
+                        <strong>Border Countries: </strong>
+                        {borderCountries.map((c: countryType) => (
+                            <a href={c.cca3} class="py-1 px-2 border border-theme-elements hover:bg-theme-elements text-sm rounded-md">
+                                {c.name.common}
+                            </a>
+                        ))}
+                    </p>
+                </div>
+            </div>
+        </section>
     </div>
 </BaseLayout>
 
